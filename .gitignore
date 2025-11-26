@@ -7,6 +7,9 @@ models/
 #Ignore plots
 plots/
 
+#Ignore results
+results/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
