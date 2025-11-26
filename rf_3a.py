@@ -16,10 +16,10 @@ import os
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.impute import SimpleImputer
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, confusion_matrix, precision_recall_fscore_support, roc_curve, auc, precision_recall_curve, average_precision_score
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, label_binarize
 from functions import csv_to_list
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -29,6 +29,7 @@ import numpy as np
 from scipy.stats import randint
 
 # EXPERIMENT 3a: Predict items given demographic, geographic, and gold value data.
+# To run + log: python -u rf_3a.py 2>&1 | tee "results/rf_3a/rf_3a_$(date +"%Y%m%d_%H%M%S").txt"
 
 # Get current working directory, data path
 cwd = os.getcwd()
@@ -91,7 +92,7 @@ random_search = RandomizedSearchCV(
     scoring='f1_weighted',
     cv=5,
     n_jobs=-1,
-    verbose=2,
+    verbose=1,
     random_state=42,
     refit=True
 )
@@ -101,8 +102,14 @@ random_search.fit(X_train, y_train)
 print("- Best parameters:", random_search.best_params_)
 print("- Best CV weighted F1:", random_search.best_score_)
 
-# Get the best model (pipeline) and evaluate it on the test set
+# Get the best model (pipeline)
 best_model = random_search.best_estimator_
+# Save best model
+joblib.dump(best_model, os.path.join(cwd, 'models', 'rf_3a.pkl'))
+
+# ------- EVALUATE MODEL -------- #
+
+# Evaluate the best model on the test set
 test_score = best_model.score(X_test, y_test)
 print(f"Test accuracy with best params: {test_score:.3f}")
 train_score = best_model.score(X_train, y_train)
@@ -112,8 +119,121 @@ print("Classification report:")
 print(classification_report(y_test, y_pred_test, zero_division=0))
 print("Confusion matrix:\n", confusion_matrix(y_test, y_pred_test))
 
-# Save best model
-joblib.dump(best_model, os.path.join(cwd, 'models', 'rf_3a.pkl'))
+# ------------------- Performance plots (add after y_pred_test) ------------------
+
+plots_dir = os.path.join(cwd, 'plots', 'rf_3a')
+os.makedirs(plots_dir, exist_ok=True)
+
+# Plot confusion matrix heatmap (counts)
+cm = confusion_matrix(y_test, y_pred_test, labels=np.unique(y_test))
+cm_index = np.unique(y_test)
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', xticklabels=cm_index, yticklabels=cm_index, cmap='Blues')
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.title('Confusion matrix (counts)')
+plt.tight_layout()
+plt.savefig(os.path.join(plots_dir, 'confusion_matrix_counts.png'), bbox_inches='tight')
+plt.close()
+
+# Plot normalised confusion matrix
+cm_norm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm_norm, annot=True, fmt='.2f', xticklabels=cm_index, yticklabels=cm_index, cmap='Blues')
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.title('Confusion matrix (normalized by true row)')
+plt.tight_layout()
+plt.savefig(os.path.join(plots_dir, 'confusion_matrix_normalized.png'), bbox_inches='tight')
+plt.close()
+
+# Bar plot of precision / recall / f1 per class
+precision, recall, f1, support = precision_recall_fscore_support(y_test, y_pred_test, zero_division=0)
+metrics_df = pd.DataFrame({'class': np.unique(y_test), 'precision': precision, 'recall': recall, 'f1': f1, 'support': support}).set_index('class')
+ax = metrics_df[['precision', 'recall', 'f1']].plot(kind='bar', figsize=(10, 6))
+ax.set_ylabel('Score')
+ax.set_ylim(0, 1.05)
+plt.title('Precision / Recall / F1 per class')
+plt.xticks(rotation=45, ha='right')
+plt.legend(loc='lower right')
+plt.tight_layout()
+plt.savefig(os.path.join(plots_dir, 'prf_per_class.png'), bbox_inches='tight')
+plt.close()
+
+# ROC & AUC (works if classifier exposes predict_proba)
+# Binarize labels for multiclass one-vs-rest
+classes = np.unique(y_test)
+n_classes = len(classes)
+try:
+    y_score = best_model.predict_proba(X_test)  # shape (n_samples, n_classes)
+    # If sklearn returns list for binary classifiers, convert
+    if isinstance(y_score, list):
+        # list of arrays for each class -> stack
+        y_score = np.vstack([col[:, 1] if col.ndim==2 else col for col in y_score]).T
+
+    # binarize y_test
+    y_test_bin = label_binarize(y_test, classes=classes)
+    if y_test_bin.shape[1] == 1:
+        # binary label_binarize may return shape (n_samples,1) -> squeeze to (n_samples,)
+        y_test_bin = np.hstack([1 - y_test_bin, y_test_bin])
+
+    # ROC per class
+    fpr = dict(); tpr = dict(); roc_auc = dict()
+    for i in range(n_classes):
+        fpr[i], tpr[i], _ = roc_curve(y_test_bin[:, i], y_score[:, i])
+        roc_auc[i] = auc(fpr[i], tpr[i])
+
+    # micro-average
+    fpr["micro"], tpr["micro"], _ = roc_curve(y_test_bin.ravel(), y_score.ravel())
+    roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
+
+    # macro-average AUC (interpolate)
+    # first aggregate all fpr points
+    all_fpr = np.unique(np.concatenate([fpr[i] for i in range(n_classes)]))
+    mean_tpr = np.zeros_like(all_fpr)
+    for i in range(n_classes):
+        mean_tpr += np.interp(all_fpr, fpr[i], tpr[i])
+    mean_tpr /= n_classes
+    fpr["macro"], tpr["macro"] = all_fpr, mean_tpr
+    roc_auc["macro"] = auc(fpr["macro"], tpr["macro"])
+
+    plt.figure(figsize=(8, 6))
+    plt.plot(fpr["micro"], tpr["micro"], label=f'micro (AUC = {roc_auc["micro"]:.2f})', linestyle=':', linewidth=2)
+    plt.plot(fpr["macro"], tpr["macro"], label=f'macro (AUC = {roc_auc["macro"]:.2f})', linestyle='-.', linewidth=2)
+    for i, cls in enumerate(classes):
+        plt.plot(fpr[i], tpr[i], lw=1, label=f'{cls} (AUC = {roc_auc[i]:.2f})')
+    plt.plot([0, 1], [0, 1], 'k--', lw=0.5)
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('ROC curves (one-vs-rest)')
+    plt.legend(loc='lower right', fontsize='small')
+    plt.tight_layout()
+    plt.savefig(os.path.join(plots_dir, 'roc_curves.png'), bbox_inches='tight')
+    plt.close()
+except Exception as e:
+    print("ROC plot skipped (predict_proba not available or error):", e)
+
+# Precision - Recall curves and average precision
+try:
+    plt.figure(figsize=(8, 6))
+    ap = dict()
+    for i, cls in enumerate(classes):
+        precision_i, recall_i, _ = precision_recall_curve(y_test_bin[:, i], y_score[:, i])
+        ap[i] = average_precision_score(y_test_bin[:, i], y_score[:, i])
+        plt.plot(recall_i, precision_i, lw=1, label=f'{cls} (AP={ap[i]:.2f})')
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
+    plt.title('Precision-Recall curves (one-vs-rest)')
+    plt.legend(loc='lower left', fontsize='small')
+    plt.tight_layout()
+    plt.savefig(os.path.join(plots_dir, 'precision_recall_curves.png'), bbox_inches='tight')
+    plt.close()
+except Exception as e:
+    print("Precision-Recall plot skipped (predict_proba not available or error):", e)
+
+# ------- FEATURE IMPORTANCE / SHAP --------- #
 
 # Extract feature importances and feature names from best model
 preprocessed_features = (best_model.named_steps['preprocessing'].get_feature_names_out())
