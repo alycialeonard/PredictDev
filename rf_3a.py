@@ -29,21 +29,20 @@ import numpy as np
 from scipy.stats import randint
 
 # EXPERIMENT 3a: Predict items given demographic, geographic, and gold value data.
-# To run and record: python -u rf_3a.py 2>&1 | tee "results/rf_3a/electricity/output/rf_3a_$(date +"%Y%m%d_%H%M%S").txt"
+# To run and record: python -u rf_3a.py 2>&1 | tee "results/rf_3a/annotation_multipurpose/output/rf_3a_$(date +"%Y%m%d_%H%M%S").txt"
 
 # --------- DEFINE EXPERIMENT PARAMETERS ---------- #
 
 # Define target for prediction.
-# Starting with electricity - important to see if it can generally be predicted who will value electric service
-target = 'Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important_Electricity'
+target = 'annotation_Multipurpose'
 
 # Define short-form of target to use in file saving
-target_short = 'electricity'
+target_short = 'annotation_multipurpose'
 
 # Define questions to drop from predictors
-# Dropping other UPV responses (general and climate)
-stems_to_drop = ['Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important',
-                 'Given the chosen climate event - which 3 items are most useful to you?']
+stems_to_drop = ['annotation_']
+#['Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important',
+#'Given the chosen climate event - which 3 items are most useful to you?']
 
 # -------- DEFINE SAVE PATHS ------------#
 cwd = os.getcwd()
@@ -64,7 +63,7 @@ df = df.dropna(subset=[target]).copy()
 y = df[target]
 
 # Set predictors as X
-cols_to_drop = [c for c in df.columns if c.startswith(stems_to_drop[0]) or c.startswith(stems_to_drop[1])]
+cols_to_drop = [c for c in df.columns if any(c.startswith(stem) for stem in stems_to_drop)]
 X = df.drop(columns=[target] + cols_to_drop)
 
 # Split data for training and testing

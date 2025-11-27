@@ -1,0 +1,17 @@
+Modelling irrigation for climate UPV game
+Relatively well-selected electrifiable technology during climate shock
+Dropping other UPV responses (general and climate)
+
+Bad performance on positives + overfitting - limited data on positives, probably no real correlations.
+
+# --------- DEFINE EXPERIMENT PARAMETERS ---------- #
+
+# Define target for prediction.
+target = 'Given the chosen climate event - which 3 items are most useful to you?_Irrigation'
+
+# Define short-form of target to use in file saving
+target_short = 'climate_irrigation'
+
+# Define questions to drop from predictors
+stems_to_drop = ['Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important',
+                 'Given the chosen climate event - which 3 items are most useful to you?']
