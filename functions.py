@@ -14,6 +14,7 @@ Contact: alycia.leonard@eng.ox.ac.uk
 import ast
 import re
 import pandas as pd
+import numpy as np
 
 def safe_list_parser(x):
     if isinstance(x, str):
@@ -55,3 +56,32 @@ def items_from_paragraph_number(df_utterances, paragraph_number, new_column_head
     subset = subset.rename(columns={'Item Name': new_column_header})
     return subset
 
+
+# Normalize shap values to a 2D array shap_for_plot with shape (n_samples, n_features)
+def normalize_shap_values(shap_values):
+    if isinstance(shap_values, list):
+        # common case: list of arrays, length == n_classes
+        if len(shap_values) == 2:
+            shap_for_plot = shap_values[1] # positive class
+            chosen = "list[1] (positive class)"
+        else:
+            shap_for_plot = shap_values[-1]  # fallback: last class
+            chosen = f"list[{len(shap_values)-1}] (fallback last class)"
+    elif isinstance(shap_values, np.ndarray):
+        if shap_values.ndim == 2:
+            shap_for_plot = shap_values  # already (n_samples, n_features)
+            chosen = "ndarray (2D)"
+        elif shap_values.ndim == 3:
+            # shape (n_samples, n_features, n_classes) -> pick positive class at last axis
+            if shap_values.shape[2] >= 2:
+                shap_for_plot = shap_values[..., 1]  # positive class
+                chosen = "ndarray (3D) -> slice [:,:,1] (positive class)"
+            else:
+                # single class in last axis? fallback to first
+                shap_for_plot = shap_values[..., 0]
+                chosen = "ndarray (3D) -> slice [:,:,0] (fallback)"
+        else:
+            raise ValueError("Unexpected shap_values ndarray ndim="+str(shap_values.ndim))
+    else:
+        raise TypeError("Unexpected type for shap_values: " + str(type(shap_values)))
+    return chosen, shap_for_plot

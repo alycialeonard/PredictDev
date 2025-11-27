@@ -1,9 +1,6 @@
 # Ignore data files
 data/
 
-# Ignore pickled models
-models/
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
