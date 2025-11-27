@@ -1,0 +1,45 @@
+Running randomized search...
+Fitting 5 folds for each of 100 candidates, totalling 500 fits
+- Best parameters: {'classifier__class_weight': 'balanced_subsample', 'classifier__max_depth': None, 'classifier__max_features': 'log2', 'classifier__min_samples_leaf': 5, 'classifier__min_samples_split': 4, 'classifier__n_estimators': 376}
+- Best CV weighted F1: 0.9394709447192916
+Test accuracy with best params: 0.933
+Train accuracy with best params: 0.986
+Classification report:
+
+              precision    recall  f1-score   support
+
+           0       0.95      0.98      0.96       195
+           1       0.57      0.27      0.36        15
+
+    accuracy                           0.93       210
+   macro avg       0.76      0.63      0.66       210
+weighted avg       0.92      0.93      0.92       210
+
+Confusion matrix:
+ [[192   3]
+ [ 11   4]]
+Top 20 features by mean |SHAP|:
+ 01. remainder__Which of the following items do you have access to in your daily life?_Battery  mean|shap|=1.853434e-02
+ 02. remainder__Which of the following items do you have access to in your daily life?_Jerrycan  mean|shap|=1.207702e-02
+ 03. remainder__What is the main source of lighting?_Grid Electric Light  mean|shap|=1.141180e-02
+ 04. remainder__What is the main source of lighting?_Solar Lantern  mean|shap|=1.123190e-02
+ 05. remainder__Which of the following items do you have access to in your daily life?_House  mean|shap|=1.098374e-02
+ 06. remainder__What is the main source of electricity in your home?_National grid connection  mean|shap|=1.087123e-02
+ 07. remainder__Which of the following items do you have access to in your daily life?_Clothes  mean|shap|=8.700535e-03
+ 08. remainder__Which of the following items do you have access to in your daily life?_Water  mean|shap|=8.383636e-03
+ 09. remainder__Which other environmental hazards affect you and your community_Outbreak of Diseases  mean|shap|=8.351693e-03
+ 10. remainder__Which of the following items do you have access to in your daily life?_Mobile Phone  mean|shap|=7.947226e-03
+ 11. remainder__Solar (private)_Lighting  mean|shap|=7.392791e-03
+ 12. remainder__How worried are you about climate change_I am very worried  mean|shap|=7.022429e-03
+ 13. remainder__How worried are you about climate change_I am slightly worried  mean|shap|=6.104648e-03
+ 14. remainder__River_Washing Clothes  mean|shap|=6.100512e-03
+ 15. remainder__What is the main source of electricity in your home?_Solar Home System  mean|shap|=5.925780e-03
+ 16. remainder__Which of the following items do you have access to in your daily life?_Money  mean|shap|=5.632615e-03
+ 17. remainder__Are you happy with the quality of the construction in your house?_Yes  mean|shap|=5.577303e-03
+ 18. remainder__Are you happy with the quality of the construction in your house?_No  mean|shap|=5.280799e-03
+ 19. remainder__River_Bathing  mean|shap|=5.226162e-03
+ 20. remainder__River_Cooking  mean|shap|=5.201637e-03
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()

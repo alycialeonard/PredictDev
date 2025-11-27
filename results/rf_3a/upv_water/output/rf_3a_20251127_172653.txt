@@ -1,0 +1,45 @@
+Running randomized search...
+Fitting 5 folds for each of 100 candidates, totalling 500 fits
+- Best parameters: {'classifier__class_weight': 'balanced', 'classifier__max_depth': 8, 'classifier__max_features': 0.2, 'classifier__min_samples_leaf': 5, 'classifier__min_samples_split': 7, 'classifier__n_estimators': 513}
+- Best CV weighted F1: 0.8306023265934366
+Test accuracy with best params: 0.819
+Train accuracy with best params: 0.955
+Classification report:
+
+              precision    recall  f1-score   support
+
+           0       0.88      0.89      0.88       159
+           1       0.63      0.61      0.62        51
+
+    accuracy                           0.82       210
+   macro avg       0.75      0.75      0.75       210
+weighted avg       0.82      0.82      0.82       210
+
+Confusion matrix:
+ [[141  18]
+ [ 20  31]]
+Top 20 features by mean |SHAP|:
+ 01. remainder__Which of the following items do you have access to in your daily life?_Water  mean|shap|=1.260288e-01
+ 02. remainder__Firewood_Cooking  mean|shap|=1.632993e-02
+ 03. remainder__Who would you define as the head of your household?_My father  mean|shap|=1.280686e-02
+ 04. remainder__Firewood_Cooling  mean|shap|=1.280043e-02
+ 05. remainder__Who would you define as the head of your household?_My husband  mean|shap|=1.183527e-02
+ 06. remainder__What community organisation and/or social activity group you are part of?_Chama  mean|shap|=1.164826e-02
+ 07. remainder__How do you mainly communicate with other communities?_Word of mouth  mean|shap|=1.028536e-02
+ 08. remainder__Sub-County Name_Machakos Town  mean|shap|=8.496527e-03
+ 09. remainder__Do you treat the water to make it safer for drinking?_No  mean|shap|=7.744574e-03
+ 10. remainder__How well connected do you feel within the community?_Very connected  mean|shap|=7.332344e-03
+ 11. remainder__Which of the following items do you have access to in your daily life?_Corrugated Iron Sheet  mean|shap|=7.136450e-03
+ 12. remainder__Which of the following items do you have access to in your daily life?_Road  mean|shap|=7.105612e-03
+ 13. remainder__What is your role in the household?_Wife  mean|shap|=6.612348e-03
+ 14. remainder__What are the three main vegetables that you grow?_Kale  mean|shap|=6.476936e-03
+ 15. remainder__How well connected do you feel within the community?_Connected  mean|shap|=6.464364e-03
+ 16. remainder__Rainwater Harvesting Tank_Cooking  mean|shap|=6.456548e-03
+ 17. remainder__Who would you contact in case of a flood?_Neighbour  mean|shap|=6.185283e-03
+ 18. remainder__Which of the following items do you have access to in your daily life?_Mobile Phone  mean|shap|=6.053902e-03
+ 19. num__What is the monthly total income of your household (KES)?  mean|shap|=5.892604e-03
+ 20. remainder__River_Bathing  mean|shap|=5.349461e-03
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()

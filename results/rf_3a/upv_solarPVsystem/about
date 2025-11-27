@@ -1,0 +1,18 @@
+One more kick at the cat - let's try the next electric item after battery.
+Drop all the other general upv/climate columns
+
+Maybe more predictable than battery based on those who already own?
+Actually worse!
+
+# --------- DEFINE EXPERIMENT PARAMETERS ---------- #
+
+# Define target for prediction.
+target = 'Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important_Solar PV System'
+
+# Define short-form of target to use in file saving
+target_short = 'upv_solarPVsystem'
+
+# Define questions to drop from predictors
+stems_to_drop = ['Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important',
+                 'Given the chosen climate event - which 3 items are most useful to you?']
+

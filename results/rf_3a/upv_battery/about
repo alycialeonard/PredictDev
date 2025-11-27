@@ -1,0 +1,14 @@
+Next "direct" electricity consuming/usign item (below motorcycle). Super unprevalent - let's see.
+Dropping other general/climate UPV columns
+
+Yeah, it's hard to predict.
+
+# Define target for prediction.
+target = 'Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important_Battery'
+
+# Define short-form of target to use in file saving
+target_short = 'upv_battery'
+
+# Define questions to drop from predictors
+stems_to_drop = ['Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important',
+                 'Given the chosen climate event - which 3 items are most useful to you?']

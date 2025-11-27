@@ -1,0 +1,45 @@
+Running randomized search...
+Fitting 5 folds for each of 100 candidates, totalling 500 fits
+- Best parameters: {'classifier__class_weight': 'balanced_subsample', 'classifier__max_depth': 8, 'classifier__max_features': 0.2, 'classifier__min_samples_leaf': 4, 'classifier__min_samples_split': 10, 'classifier__n_estimators': 771}
+- Best CV weighted F1: 0.9161420413866554
+Test accuracy with best params: 0.895
+Train accuracy with best params: 0.975
+Classification report:
+
+              precision    recall  f1-score   support
+
+           0       0.95      0.93      0.94       186
+           1       0.54      0.62      0.58        24
+
+    accuracy                           0.90       210
+   macro avg       0.74      0.78      0.76       210
+weighted avg       0.90      0.90      0.90       210
+
+Confusion matrix:
+ [[173  13]
+ [  9  15]]
+Top 20 features by mean |SHAP|:
+ 01. remainder__Which of the following items do you have access to in your daily life?_Motorcycle  mean|shap|=1.174927e-01
+ 02. remainder__County Name_Turkana (Kenya)  mean|shap|=5.569994e-02
+ 03. remainder__What are the main 3 building materials used to build your house?_Grass thatched roof  mean|shap|=4.565543e-02
+ 04. remainder__Firewood_Other appliances  mean|shap|=1.525117e-02
+ 05. remainder__Have you ever experienced flooding in your home?_Yes  mean|shap|=1.204063e-02
+ 06. remainder__How do you mainly receive political information?_Radio TV  mean|shap|=1.057044e-02
+ 07. num__How much money is spent on average during/after a catastrophic event to return to normality?  mean|shap|=9.995637e-03
+ 08. remainder__Firewood_Cooling  mean|shap|=8.981418e-03
+ 09. remainder__How do your mainly receive information about climate change_Radio TV  mean|shap|=8.285857e-03
+ 10. remainder__County Name_Machakos (Kenya)  mean|shap|=7.637507e-03
+ 11. remainder__What are the main 3 building materials used to build your house?_Corrugated iron sheets  mean|shap|=7.500384e-03
+ 12. remainder__Have you ever experienced flooding in your home?_No  mean|shap|=6.617865e-03
+ 13. remainder__What is the main source of lighting?_Torch  mean|shap|=6.372016e-03
+ 14. num__What is the monthly total income of your household (KES)?  mean|shap|=6.257459e-03
+ 15. num__How many days are spent on average during/after a catastrophic event to return to normality?  mean|shap|=5.646269e-03
+ 16. remainder__How do you mainly receive political information?_Word of mouth  mean|shap|=5.080353e-03
+ 17. remainder__How do your mainly receive information about climate change_Word of mouth  mean|shap|=4.961573e-03
+ 18. remainder__Who would you contact in case of a fire?_Neighbour  mean|shap|=4.931962e-03
+ 19. remainder__How do you mainly receive information about health?_Radio  mean|shap|=4.109791e-03
+ 20. num__Age of household head?  mean|shap|=3.836951e-03
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()

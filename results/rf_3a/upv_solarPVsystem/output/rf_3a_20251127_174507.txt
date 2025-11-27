@@ -1,0 +1,45 @@
+Running randomized search...
+Fitting 5 folds for each of 100 candidates, totalling 500 fits
+- Best parameters: {'classifier__class_weight': 'balanced', 'classifier__max_depth': 8, 'classifier__max_features': 'sqrt', 'classifier__min_samples_leaf': 5, 'classifier__min_samples_split': 8, 'classifier__n_estimators': 235}
+- Best CV weighted F1: 0.932369988653735
+Test accuracy with best params: 0.929
+Train accuracy with best params: 0.992
+Classification report:
+
+              precision    recall  f1-score   support
+
+           0       0.95      0.97      0.96       198
+           1       0.29      0.17      0.21        12
+
+    accuracy                           0.93       210
+   macro avg       0.62      0.57      0.59       210
+weighted avg       0.91      0.93      0.92       210
+
+Confusion matrix:
+ [[193   5]
+ [ 10   2]]
+Top 20 features by mean |SHAP|:
+ 01. remainder__Which of the following items do you have access to in your daily life?_Solar PV System  mean|shap|=3.256646e-02
+ 02. remainder__What is your gender?_Male  mean|shap|=1.392438e-02
+ 03. remainder__What are the main 3 building materials used to build your house?_Bricks  mean|shap|=1.216276e-02
+ 04. remainder__Who would you contact in case of a fire?_Firefighter  mean|shap|=1.201430e-02
+ 05. remainder__Firewood_Other appliances  mean|shap|=1.064141e-02
+ 06. remainder__What is the main source of lighting?_Grid Electric Light  mean|shap|=9.951561e-03
+ 07. remainder__Which of the following items do you have access to in your daily life?_Torch  mean|shap|=9.163431e-03
+ 08. num__How much money is spent on average during/after a catastrophic event to return to normality?  mean|shap|=9.112420e-03
+ 09. remainder__Do you use electricity for your business?_No  mean|shap|=8.304186e-03
+ 10. remainder__What is your gender?_Female  mean|shap|=7.738385e-03
+ 11. remainder__What is the main source of electricity in your home?_National grid connection  mean|shap|=7.528252e-03
+ 12. remainder__Total household size  mean|shap|=7.204345e-03
+ 13. remainder__Who would you define as the head of your household?_My husband  mean|shap|=7.152408e-03
+ 14. remainder__Which of the following items do you have access to in your daily life?_Irrigation  mean|shap|=7.093525e-03
+ 15. remainder__What are the main 3 building materials used to build your house?_Cement  mean|shap|=6.596056e-03
+ 16. remainder__Which of the following items do you have access to in your daily life?_Stove  mean|shap|=6.534158e-03
+ 17. remainder__Who can you mainly consult in case of health issues?_Health Provider  mean|shap|=6.491107e-03
+ 18. remainder__How do you mainly receive political information?_Social events  mean|shap|=5.918167e-03
+ 19. remainder__Which of the following items do you have access to in your daily life?_Corrugated Iron Sheet  mean|shap|=5.616101e-03
+ 20. remainder__What are the main 3 building materials used to build your house?_Mud bricks  mean|shap|=5.521376e-03
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()
