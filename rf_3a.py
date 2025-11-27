@@ -44,8 +44,8 @@ stems_to_drop = ['Which 5 items are most important to you in your daily life? Pl
 
 # Define paths to save results
 cwd = os.getcwd()
-model_save_path = os.path.join('results', 'rf_3a', 'electricity', 'models', 'rf_3a.pkl')
-plots_save_path = os.path.join(cwd, 'results', 'rf_3a', 'electricity', 'plots')
+model_save_path = os.path.join(cwd, 'results', 'rf_3a', 'electricity', 'models', 'rf_3a.pkl')
+plots_save_path = os.path.join(cwd, 'results', 'rf_3a', 'electricity', 'plots' )
 
 # ------------ LOAD DATA ------------ #
 
