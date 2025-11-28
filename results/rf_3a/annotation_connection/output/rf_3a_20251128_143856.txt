@@ -1,0 +1,45 @@
+Running randomized search...
+Fitting 5 folds for each of 100 candidates, totalling 500 fits
+- Best parameters: {'classifier__class_weight': 'balanced_subsample', 'classifier__max_depth': 12, 'classifier__max_features': 'sqrt', 'classifier__min_samples_leaf': 3, 'classifier__min_samples_split': 5, 'classifier__n_estimators': 295}
+- Best CV weighted F1: 0.7266843538781849
+Test accuracy with best params: 0.752
+Train accuracy with best params: 0.996
+Classification report:
+
+              precision    recall  f1-score   support
+
+           0       0.78      0.93      0.85       159
+           1       0.48      0.20      0.28        51
+
+    accuracy                           0.75       210
+   macro avg       0.63      0.56      0.56       210
+weighted avg       0.71      0.75      0.71       210
+
+Confusion matrix:
+ [[148  11]
+ [ 41  10]]
+Top 20 features by mean |SHAP|:
+ 01. remainder__Of these appliances which is the most valuable?_Mobile Phone  mean|shap|=2.893953e-02
+ 02. remainder__Have you ever experiences extreme rain_No  mean|shap|=1.362760e-02
+ 03. remainder__Which of the following items do you have access to in your daily life?_Mobile Phone  mean|shap|=1.300305e-02
+ 04. remainder__Have you ever experiences extreme rain_Yes  mean|shap|=9.325947e-03
+ 05. remainder__Generally speaking would say that most people can be trusted or that one can't be too careful in dealing with people?_One should trust but needs to be careful  mean|shap|=8.202285e-03
+ 06. num__How long does it take you to travel to receive healthcare?  mean|shap|=6.657948e-03
+ 07. num__Age of household head?  mean|shap|=6.084046e-03
+ 08. num__How many days are spent on average during/after a catastrophic event to return to normality?  mean|shap|=5.818256e-03
+ 09. num__How much money is spent on average during/after a catastrophic event to return to normality?  mean|shap|=5.109830e-03
+ 10. remainder__Which of the following items do you have access to in your daily life?_Bike  mean|shap|=5.054712e-03
+ 11. num__Household members less than 18  mean|shap|=4.503266e-03
+ 12. remainder__Who would you contact in case of a flood?_Neighbour  mean|shap|=4.343875e-03
+ 13. num__Household members over 55 years of age  mean|shap|=4.279574e-03
+ 14. num__What is the monthly total income of your household (KES)?  mean|shap|=4.243126e-03
+ 15. remainder__Who would you contact in case of extreme rains?_Neighbour  mean|shap|=4.099857e-03
+ 16. remainder__Of these appliances which is the most valuable?_Radio  mean|shap|=4.068244e-03
+ 17. remainder__In which months have you experienced extreme rains?_March  mean|shap|=3.918975e-03
+ 18. remainder__What is the electricity used for?_Lighting  mean|shap|=3.847145e-03
+ 19. num__Number of males in household  mean|shap|=3.761890e-03
+ 20. remainder__What is your main occupation?_Unemployed  mean|shap|=3.516137e-03
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()

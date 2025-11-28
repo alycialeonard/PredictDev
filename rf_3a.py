@@ -29,18 +29,19 @@ import numpy as np
 from scipy.stats import randint
 
 # EXPERIMENT 3a: Predict items given demographic, geographic, and gold value data.
-# To run and record: python -u rf_3a.py 2>&1 | tee "results/rf_3a/upv_solarPVsystem/output/rf_3a_$(date +"%Y%m%d_%H%M%S").txt"
+# To run and record: python -u rf_3a.py 2>&1 | tee "results/rf_3a/access_motorcycle/output/rf_3a_$(date +"%Y%m%d_%H%M%S").txt"
 
 # --------- DEFINE EXPERIMENT PARAMETERS ---------- #
 
 # Define target for prediction.
-target = 'Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important_Solar PV System'
+target = 'Which of the following items do you have access to in your daily life?_Motorcycle'
 
 # Define short-form of target to use in file saving
-target_short = 'upv_solarPVsystem'
+target_short = 'access_motorcycle'
 
 # Define questions to drop from predictors
-stems_to_drop = ['Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important',
+stems_to_drop = ['Which of the following items do you have access to in your daily life?',
+                 'Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important',
                  'Given the chosen climate event - which 3 items are most useful to you?']
 
 # -------- DEFINE SAVE PATHS ------------#

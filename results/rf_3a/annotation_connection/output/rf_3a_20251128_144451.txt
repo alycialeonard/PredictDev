@@ -1,0 +1,45 @@
+Running randomized search...
+Fitting 5 folds for each of 100 candidates, totalling 500 fits
+- Best parameters: {'classifier__class_weight': 'balanced', 'classifier__max_depth': 8, 'classifier__max_features': 0.2, 'classifier__min_samples_leaf': 3, 'classifier__min_samples_split': 3, 'classifier__n_estimators': 303}
+- Best CV weighted F1: 0.7381427079509573
+Test accuracy with best params: 0.690
+Train accuracy with best params: 0.968
+Classification report:
+
+              precision    recall  f1-score   support
+
+           0       0.79      0.81      0.80       159
+           1       0.35      0.31      0.33        51
+
+    accuracy                           0.69       210
+   macro avg       0.57      0.56      0.56       210
+weighted avg       0.68      0.69      0.68       210
+
+Confusion matrix:
+ [[129  30]
+ [ 35  16]]
+Top 20 features by mean |SHAP|:
+ 01. remainder__Have you ever experiences extreme rain_No  mean|shap|=3.602752e-02
+ 02. remainder__Have you ever experiences extreme rain_Yes  mean|shap|=1.838384e-02
+ 03. remainder__Generally speaking would say that most people can be trusted or that one can't be too careful in dealing with people?_One should trust but needs to be careful  mean|shap|=1.354299e-02
+ 04. num__How long does it take you to travel to receive healthcare?  mean|shap|=1.039153e-02
+ 05. num__How many days are spent on average during/after a catastrophic event to return to normality?  mean|shap|=1.007777e-02
+ 06. num__Age of household head?  mean|shap|=9.231246e-03
+ 07. remainder__Who can you mainly consult in case of health issues?_Doctor  mean|shap|=7.682422e-03
+ 08. remainder__Who would you contact in case of a flood?_Neighbour  mean|shap|=6.189084e-03
+ 09. num__Number of males in household  mean|shap|=5.754256e-03
+ 10. num__How much money is spent on average during/after a catastrophic event to return to normality?  mean|shap|=5.746188e-03
+ 11. remainder__Total household size  mean|shap|=5.707312e-03
+ 12. remainder__Generally speaking would say that most people can be trusted or that one can't be too careful in dealing with people?_Most people can be trusted  mean|shap|=5.659780e-03
+ 13. num__What is the monthly total income of your household (KES)?  mean|shap|=5.255202e-03
+ 14. remainder__What is the electricity used for?_TV  mean|shap|=4.844502e-03
+ 15. num__Household members over 55 years of age  mean|shap|=4.682753e-03
+ 16. remainder__Who would you contact in case of extreme rains?_Neighbour  mean|shap|=4.602083e-03
+ 17. remainder__Have you experienced fire in your home?_No  mean|shap|=4.509362e-03
+ 18. remainder__Community well/borehole_Cooking  mean|shap|=4.250357e-03
+ 19. remainder__Coal/Charcoal_Cooking  mean|shap|=4.168741e-03
+ 20. remainder__How well connected do you feel within the community?_Very connected  mean|shap|=4.147261e-03
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()

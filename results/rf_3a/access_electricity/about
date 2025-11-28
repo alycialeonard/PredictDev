@@ -1,0 +1,19 @@
+Predict existing access to electricity instead of value of electricity.
+
+
+# --------- DEFINE EXPERIMENT PARAMETERS ---------- #
+
+# Define target for prediction.
+target = 'Which of the following items do you have access to in your daily life?_Electricity'
+
+# Define short-form of target to use in file saving
+target_short = 'access_electricity'
+
+# Define questions to drop from predictors
+stems_to_drop = ['Which of the following items do you have access to in your daily life?',
+                 'What is the main source of lighting?',
+                 'What is the main source of electricity in your home?',
+                 'What is the electricity used for?',
+                 'What do you use electricity for in your business?',
+                 'Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important',
+                 'Given the chosen climate event - which 3 items are most useful to you?']

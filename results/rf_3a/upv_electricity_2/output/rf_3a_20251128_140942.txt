@@ -1,0 +1,45 @@
+Running randomized search...
+Fitting 5 folds for each of 100 candidates, totalling 500 fits
+- Best parameters: {'classifier__class_weight': 'balanced_subsample', 'classifier__max_depth': 12, 'classifier__max_features': 'sqrt', 'classifier__min_samples_leaf': 3, 'classifier__min_samples_split': 5, 'classifier__n_estimators': 295}
+- Best CV weighted F1: 0.8674176382716254
+Test accuracy with best params: 0.852
+Train accuracy with best params: 0.977
+Classification report:
+
+              precision    recall  f1-score   support
+
+           0       0.92      0.90      0.91       175
+           1       0.55      0.60      0.58        35
+
+    accuracy                           0.85       210
+   macro avg       0.74      0.75      0.74       210
+weighted avg       0.86      0.85      0.85       210
+
+Confusion matrix:
+ [[158  17]
+ [ 14  21]]
+Top 20 features by mean |SHAP|:
+ 01. remainder__County Name_Machakos (Kenya)  mean|shap|=2.543459e-02
+ 02. remainder__How often do you watch TV?_Every day  mean|shap|=2.111690e-02
+ 03. remainder__How often do you watch TV?_Never  mean|shap|=2.009598e-02
+ 04. remainder__River_Bathing  mean|shap|=1.979320e-02
+ 05. remainder__River_Cooking  mean|shap|=1.812912e-02
+ 06. remainder__Sub-County Name_Machakos Town  mean|shap|=1.475181e-02
+ 07. remainder__What are the main 3 building materials used to build your house?_Cement  mean|shap|=1.272479e-02
+ 08. remainder__River_Washing Clothes  mean|shap|=1.263443e-02
+ 09. remainder__Which other environmental hazards affect you and your community_Dumping  mean|shap|=1.211918e-02
+ 10. remainder__What are the main 3 building materials used to build your house?_Bricks  mean|shap|=1.163241e-02
+ 11. remainder__Firewood_Lighting  mean|shap|=9.521303e-03
+ 12. num__Household members less than 18  mean|shap|=9.222485e-03
+ 13. remainder__County Name_Turkana (Kenya)  mean|shap|=8.544504e-03
+ 14. remainder__How do you mainly receive political information?_Radio TV  mean|shap|=8.269541e-03
+ 15. remainder__Solar (private)_Lighting  mean|shap|=8.067032e-03
+ 16. remainder__Do you have internet access?_Yes  mean|shap|=7.826639e-03
+ 17. remainder__Coal/Charcoal_Cooking  mean|shap|=7.741007e-03
+ 18. remainder__Do you treat the water to make it safer for drinking?_Yes  mean|shap|=6.936188e-03
+ 19. remainder__How often do you use the internet?_Every day  mean|shap|=6.783985e-03
+ 20. remainder__What is the highest level of education you have completed?_No formal education  mean|shap|=6.767163e-03
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()

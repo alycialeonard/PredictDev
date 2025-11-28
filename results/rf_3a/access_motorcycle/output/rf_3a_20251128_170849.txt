@@ -1,0 +1,45 @@
+Running randomized search...
+Fitting 5 folds for each of 100 candidates, totalling 500 fits
+- Best parameters: {'classifier__class_weight': 'balanced', 'classifier__max_depth': 8, 'classifier__max_features': 0.2, 'classifier__min_samples_leaf': 5, 'classifier__min_samples_split': 7, 'classifier__n_estimators': 513}
+- Best CV weighted F1: 0.8264289665644464
+Test accuracy with best params: 0.852
+Train accuracy with best params: 0.931
+Classification report:
+
+              precision    recall  f1-score   support
+
+           0       0.90      0.89      0.90       151
+           1       0.73      0.75      0.74        59
+
+    accuracy                           0.85       210
+   macro avg       0.82      0.82      0.82       210
+weighted avg       0.85      0.85      0.85       210
+
+Confusion matrix:
+ [[135  16]
+ [ 15  44]]
+Top 20 features by mean |SHAP|:
+ 01. remainder__County Name_Turkana (Kenya)  mean|shap|=5.234884e-02
+ 02. remainder__What are the main 3 building materials used to build your house?_Grass thatched roof  mean|shap|=4.201486e-02
+ 03. remainder__County Name_Machakos (Kenya)  mean|shap|=3.151208e-02
+ 04. remainder__What is the main source of lighting?_Torch  mean|shap|=1.755035e-02
+ 05. num__What is the monthly total income of your household (KES)?  mean|shap|=1.748438e-02
+ 06. remainder__How do you mainly receive information about health?_Radio  mean|shap|=1.731160e-02
+ 07. remainder__How do you irrigate your land?_Other  mean|shap|=1.729311e-02
+ 08. num__Age of household head?  mean|shap|=1.418562e-02
+ 09. remainder__Firewood_Lighting  mean|shap|=1.372240e-02
+ 10. remainder__What is your gender?_Male  mean|shap|=9.595785e-03
+ 11. remainder__Community well/borehole_Cooking  mean|shap|=8.816193e-03
+ 12. num__How many days are spent on average during/after a catastrophic event to return to normality?  mean|shap|=8.681370e-03
+ 13. remainder__How do you irrigate your land?_Rain Water Only  mean|shap|=7.185609e-03
+ 14. remainder__How often do you use the internet?_Every day  mean|shap|=6.276086e-03
+ 15. remainder__Who would you contact in case of a flood?_Family  mean|shap|=6.263948e-03
+ 16. remainder__How do your mainly receive information about climate change_Radio TV  mean|shap|=6.178146e-03
+ 17. num__How much money is spent on average during/after a catastrophic event to return to normality?  mean|shap|=5.711490e-03
+ 18. remainder__Do you grow your own vegetables?_No  mean|shap|=5.692951e-03
+ 19. remainder__Community well/borehole_Washing Clothes  mean|shap|=5.077369e-03
+ 20. remainder__Who would you contact in case of extreme rains?_Family  mean|shap|=5.065284e-03
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()
+/Users/alycialeonard/miniforge3/envs/PredictDev/lib/python3.13/site-packages/shap/plots/_beeswarm.py:1150: UserWarning: Tight layout not applied. The left and right margins cannot be made large enough to accommodate all Axes decorations.
+  plt.tight_layout()
