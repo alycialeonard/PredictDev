@@ -14,7 +14,8 @@ Contact: alycia.leonard@eng.ox.ac.uk
 import pandas as pd
 import os
 import warnings
-from functions import safe_list_parser, run_experiment
+from functions import safe_list_parser
+from rf import run_rf_experiment
 from sklearn.ensemble import RandomForestClassifier
 from scipy.stats import randint
 
@@ -51,7 +52,7 @@ def main():
         to_drop = safe_list_parser(row['stems_to_drop'])
 
         # Run the experiment
-        run_experiment(tar, tar_short, to_drop, clf, clf_short, param_dist)
+        run_rf_experiment(tar, tar_short, to_drop, clf, clf_short, param_dist)
 
 
 if __name__ == "__main__":
