@@ -27,6 +27,9 @@ cols_path = os.path.join(data_path, "cols")
 df_u = pd.read_csv(os.path.join(data_path, "Kenya_UPV_Utterances.csv"), low_memory=False)
 df_s = pd.read_csv(os.path.join(data_path, "Kenya_UPV_Survey.csv"), header=1, low_memory=False)
 
+# Load cluster dataset
+df_c = pd.read_csv(os.path.join(data_path, "Kenya_UPV_clusters.csv"), low_memory=False)
+
 # Load lists of columns by type (derived in advance from inspection of the dataset)
 categorical_cols = csv_to_list(os.path.join(cols_path, "categorical_cols.csv"), 'categorical_cols')
 multi_label_cols = csv_to_list(os.path.join(cols_path, "multi_label_cols.csv"), 'multi_label_cols')
@@ -52,6 +55,11 @@ for col in multi_label_cols:
     df_s[col] = df_s[col].apply(safe_list_parser)
     # Replace NaN or float with empty list to avoid TypeError
     df_s[col] = df_s[col].apply(lambda x: x if isinstance(x, (list, set, tuple)) else [])
+
+# Merge cluster names onto survey dataset
+df_s = df_s.merge(df_c, on='Interview ID', how='left')
+# Add clusters to categorical col list
+categorical_cols.extend(['Cluster ID'])
 
 # --------- EXPLODE COMMUNITY SERVICE COLUMNS IN SURVEY ---------- #
 
