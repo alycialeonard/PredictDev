@@ -26,15 +26,15 @@ def main():
     tar = 'Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important_Electricity'
 
     # Define short-form of target to use in file saving
-    tar_short = 'upv_electricity'
+    tar_short = 'UPV_Electricity'
 
     # Define questions to drop from predictors
     to_drop = ['Which of the following items do you have access to in your daily life?',
                'Which 5 items are most important to you in your daily life? Please indicate these in order of importance, starting with the most important',
                'Given the chosen climate event - which 3 items are most useful to you?']
 
-    # Define XGBoost classifier (without tuned params). Use_label_encoder=False and eval_metric to avoid deprecation warnings
-    clf = XGBClassifier(use_label_encoder=False, eval_metric='logloss', random_state=42, n_jobs=-1)
+    # Define XGBoost classifier (without tuned params)
+    clf = XGBClassifier(eval_metric='logloss', random_state=42, n_jobs=-1)
 
     clf_short = 'xgb'
 

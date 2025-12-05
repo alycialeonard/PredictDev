@@ -401,16 +401,37 @@ def run_experiment(target, target_short, stems_to_drop, clf, clf_short, param_di
     # Get preprocessor and classifier from best model
     preprocessor = best_model.named_steps['preprocessing']
     clf = best_model.named_steps['classifier']
+
     # Transform training data for SHAP
     X_train_transformed = preprocessor.transform(X_train)
     feature_names = preprocessor.get_feature_names_out(X_train.columns)
     X_shap = pd.DataFrame(X_train_transformed, columns=feature_names)
+    n_samples = X_shap.shape[0]
+    n_features = X_shap.shape[1]
+    print(f"X_shap shape: samples={n_samples}, features={n_features}")
+
     # Use TreeExplainer on the classifier and compute SHAP values
     explainer = shap.TreeExplainer(clf)
     shap_values = explainer.shap_values(X_shap)
-    shap_for_plot = shap_values[..., 1]  # positive class
+    # shap_for_plot = shap_values[..., 1]  # positive class
 
-    # ---------- SAVE SHAP VALUES --------- #
+    # Hand the fact that SHAP can output about a million different shapes.
+    print("Raw SHAP type:", type(shap_values))
+    # Case 1: One list per class
+    if isinstance(shap_values, list):
+        shap_for_plot = shap_values[1]  # positive class
+    # Case 2: 3D array: (samples, features, classes)
+    elif shap_values.ndim == 3 and shap_values.shape[2] >= 2:
+        shap_for_plot = shap_values[:, :, 1]
+    # Case 3: 2D array matching (samples, features)
+    elif shap_values.ndim == 2 and shap_values.shape[1] > 1:
+        shap_for_plot = shap_values
+    # Case 4: SHAP returned only one value per sample (shape: (n,1)). Fill it across all features so code doesn't crash
+    elif shap_values.ndim == 2 and shap_values.shape[1] == 1:
+        shap_for_plot = np.repeat(shap_values, X_shap.shape[1], axis=1)
+    else:
+        raise ValueError(f"Unexpected SHAP shape: {shap_values.shape}")
+
     # Get per-sample SHAP values (positive class) as DataFrame, add sample identifiers, save to CSV
     shap_df = pd.DataFrame(shap_for_plot, columns=X_shap.columns, index=X_shap.index)
     shap_df.insert(0, 'sample_index', shap_df.index)
@@ -426,7 +447,6 @@ def run_experiment(target, target_short, stems_to_drop, clf, clf_short, param_di
     feat_summary.to_csv(os.path.join(metrics_save_path, 'shap_feature_summary.csv'), index=False)
     print(f"SHAP summary saved to {os.path.join(metrics_save_path, 'shap_feature_summary.csv')}!")
 
-    # --------- PLOT SHAP VALUES ---------- #
     print("Plotting SHAP values...")
     # Plot summary dot plot
     plt.figure(figsize=(10, 6))
