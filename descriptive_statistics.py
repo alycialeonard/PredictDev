@@ -22,7 +22,9 @@ df = pd.read_csv(os.path.join(cwd, 'data', "Kenya_UPV_Survey_Preprocessed_AllCol
 
 # Define path to save results
 plots_save_path = os.path.join(cwd, 'results', 'descriptive_statistics', 'plots')
+os.makedirs(plots_save_path, exist_ok=True)
 csv_save_path = os.path.join(cwd, 'results', 'descriptive_statistics', 'csvs')
+os.makedirs(csv_save_path, exist_ok=True)
 
 # Load lists of columns
 cols_path = os.path.join(cwd, 'data', 'cols')
